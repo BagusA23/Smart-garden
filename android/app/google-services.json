@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1094886623978",
+    "firebase_url": "https://agrisky-b251e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "agrisky-b251e",
+    "storage_bucket": "agrisky-b251e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094886623978:android:dd7ec6ff53a7dd49b72593",
+        "android_client_info": {
+          "package_name": "com.example.ptoject_akhir_kelas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094886623978-pq90psfqb6n6g2idrsidlt1d08g9k7pf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjA3zsHJa0Ro9QU50wxdxYPCD__AEgaJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094886623978-pq90psfqb6n6g2idrsidlt1d08g9k7pf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

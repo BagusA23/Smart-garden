@@ -1,5 +1,8 @@
+// lib/widgets/app_drawer.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_farming/theme/app_colors.dart';
+import 'package:smart_farming/cubit/auth/auth_cubit.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -8,132 +11,182 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: AppColors.surfaceVariant,
-      child: Column(
-        children: [
-          // Header with gradient
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  AppColors.accent,
-                  AppColors.primaryDark,
-                ],
+      child: BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, state) {
+          // Get user data
+          final user = context.read<AuthCubit>().currentUser;
+          final userName = user?.displayName ?? 'Smart Farming User';
+          final userEmail = user?.email ?? 'user@smartfarm.id';
+
+          return Column(
+            children: [
+              // Header with gradient
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      AppColors.accent,
+                      AppColors.primaryDark,
+                    ],
+                  ),
+                ),
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.white,
+                          child: user?.photoURL != null
+                              ? ClipOval(
+                                  child: Image.network(
+                                    user!.photoURL!,
+                                    width: 80,
+                                    height: 80,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Icon(
+                                        Icons.agriculture,
+                                        color: AppColors.primary,
+                                        size: 40,
+                                      );
+                                    },
+                                  ),
+                                )
+                              : Icon(
+                                  Icons.agriculture,
+                                  color: AppColors.primary,
+                                  size: 40,
+                                ),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          userName,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          userEmail,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.9),
+                            fontSize: 14,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        if (user != null && !user.emailVerified)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.warning.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                'Email belum terverifikasi',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+
+              // Menu Items
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.agriculture,
-                        color: AppColors.primary,
-                        size: 40,
+                    _DrawerItem(
+                      icon: Icons.person_outline,
+                      title: "Profil",
+                      onTap: () {
+                        // TODO: Navigate to profile
+                        Navigator.pop(context);
+                      },
+                    ),
+                    _DrawerItem(
+                      icon: Icons.history,
+                      title: "Riwayat Data",
+                      onTap: () {
+                        // TODO: Navigate to history
+                        Navigator.pop(context);
+                      },
+                    ),
+                    _DrawerItem(
+                      icon: Icons.notifications_outlined,
+                      title: "Notifikasi",
+                      onTap: () {
+                        // TODO: Navigate to notifications
+                        Navigator.pop(context);
+                      },
+                    ),
+                    
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Divider(
+                        color: AppColors.divider,
+                        thickness: 1,
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      "Smart Farming",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    
+                    _DrawerItem(
+                      icon: Icons.settings_outlined,
+                      title: "Pengaturan",
+                      onTap: () {
+                        // TODO: Navigate to settings
+                        Navigator.pop(context);
+                      },
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "petani@smartfarm.id",
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
-                        fontSize: 14,
-                      ),
+                    _DrawerItem(
+                      icon: Icons.info_outline,
+                      title: "Tentang Aplikasi",
+                      onTap: () {
+                        // TODO: Show about dialog
+                        Navigator.pop(context);
+                      },
                     ),
                   ],
                 ),
               ),
-            ),
-          ),
 
-          // Menu Items
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              children: [
-                _DrawerItem(
-                  icon: Icons.person_outline,
-                  title: "Profil",
+              // Logout at bottom
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _DrawerItem(
+                  icon: Icons.logout,
+                  title: "Logout",
+                  iconColor: AppColors.error,
+                  textColor: AppColors.error,
                   onTap: () {
-                    // TODO: Navigate to profile
-                    Navigator.pop(context);
+                    _showLogoutDialog(context);
                   },
                 ),
-                _DrawerItem(
-                  icon: Icons.history,
-                  title: "Riwayat Data",
-                  onTap: () {
-                    // TODO: Navigate to history
-                    Navigator.pop(context);
-                  },
-                ),
-                _DrawerItem(
-                  icon: Icons.notifications_outlined,
-                  title: "Notifikasi",
-                  onTap: () {
-                    // TODO: Navigate to notifications
-                    Navigator.pop(context);
-                  },
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Divider(
-                    color: AppColors.divider,
-                    thickness: 1,
-                  ),
-                ),
-
-                _DrawerItem(
-                  icon: Icons.settings_outlined,
-                  title: "Pengaturan",
-                  onTap: () {
-                    // TODO: Navigate to settings
-                    Navigator.pop(context);
-                  },
-                ),
-                _DrawerItem(
-                  icon: Icons.info_outline,
-                  title: "Tentang Aplikasi",
-                  onTap: () {
-                    // TODO: Show about dialog
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ),
-
-          // Logout at bottom
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: _DrawerItem(
-              icon: Icons.logout,
-              title: "Logout",
-              iconColor: AppColors.error,
-              textColor: AppColors.error,
-              onTap: () {
-                // TODO: Show logout confirmation
-                _showLogoutDialog(context);
-              },
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -141,7 +194,7 @@ class AppDrawer extends StatelessWidget {
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           backgroundColor: AppColors.surfaceVariant,
           title: Text(
@@ -160,7 +213,7 @@ class AppDrawer extends StatelessWidget {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(dialogContext),
               child: Text(
                 'Batal',
                 style: TextStyle(color: AppColors.textSecondary),
@@ -168,9 +221,10 @@ class AppDrawer extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // TODO: Implement logout
-                Navigator.pop(context);
-                Navigator.pop(context);
+                Navigator.pop(dialogContext); // Close dialog
+                Navigator.pop(context); // Close drawer
+                // Call logout from AuthCubit
+                context.read<AuthCubit>().signOut();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.error,
