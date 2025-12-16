@@ -119,6 +119,14 @@ class AppDrawer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   children: [
                     _DrawerItem(
+                      icon: Icons.health_and_safety, 
+                      title: 'Status Tanaman', 
+                      onTap: () {
+                        // TODO: Navigate to status page
+                        Navigator.pop(context);
+                      },
+                      ),
+                    _DrawerItem(
                       icon: Icons.person_outline,
                       title: "Profil",
                       onTap: () {

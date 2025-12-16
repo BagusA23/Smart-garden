@@ -4,21 +4,13 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:smart_farming/cubit/navigation_cubit.dart';
 import 'package:smart_farming/widgets/app_drawer.dart';
 import 'package:smart_farming/theme/app_colors.dart';
+import 'package:smart_farming/pages/dashboard.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
 
   static final List<Widget> pages = [
-    Center(
-      child: Text(
-        "DASHBOARD",
-        style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-          color: AppColors.textPrimary,
-        ),
-      ),
-    ),
+    const dashboard(),
     Center(
       child: Text(
         "IRIGASI / AIR",
