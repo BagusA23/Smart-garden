@@ -22,7 +22,7 @@ Aplikasi ini menggabungkan **IoT, REST API, dan AI (deteksi hama)** dalam satu d
   * Suhu
   * Kelembapan
   * Kondisi cuaca
-* Data berasal dari **API cuaca** atau sensor lingkungan
+* Data berasal dari atau sensor lingkungan
 
 ### 🚜 Kontrol Pembajak / Alat Pertanian
 
@@ -144,8 +144,11 @@ lib/
 
 ## 👨‍💻 Kontributor
 
-* **Bagus** – Mobile App & System Development
-* Tim Smart Farming
+* **Bagus** – Weather Pages 
+  [![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github)](https://github.com/Bagus-DevLab)
+* **Adit** - Pest Pages
+  [![GitHub](https://img.shields.io/badge/GitHub-Profile-black?logo=github)](https://github.com/Adttt-dev)
+
 
 ---
 
