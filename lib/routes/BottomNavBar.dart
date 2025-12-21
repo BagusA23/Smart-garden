@@ -17,7 +17,7 @@ class BottomNavBar extends StatelessWidget {
     const Dashboard(),
     const IrrigationPage(),
     const PlantHealthPage(),
-   const PestDetectionPage(),
+    const PestDetectionPage(),
   ];
 
   @override

@@ -1,8 +1,10 @@
 // lib/widgets/app_drawer.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_farming/pages/weather_page.dart';
 import 'package:smart_farming/theme/app_colors.dart';
 import 'package:smart_farming/cubit/auth/auth_cubit.dart';
+
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -119,29 +121,26 @@ class AppDrawer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   children: [
                     _DrawerItem(
-                        icon: Icons.pest_control,
-                        title: 'deteksi hama',
+                        icon: Icons.cloud,
+                        title: 'Cuaca',
                         onTap: (){
-                          // TODO: Navigate to hama page
-                          Navigator.pop(context);
+                          Navigator.pop(context); // nutup drawer dulu (best practice)
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const WeatherDashboardScreen(),
+                              ),
+                          );
                         },
                     ),
                     _DrawerItem(
-                      icon: Icons.health_and_safety, 
-                      title: 'Status Tanaman', 
+                      icon: Icons.agriculture,
+                      title: 'Pembajakan',
                       onTap: () {
                         // TODO: Navigate to status page
                         Navigator.pop(context);
                       },
                       ),
-                    _DrawerItem(
-                      icon: Icons.person_outline,
-                      title: "Profil",
-                      onTap: () {
-                        // TODO: Navigate to profile
-                        Navigator.pop(context);
-                      },
-                    ),
                     _DrawerItem(
                       icon: Icons.history,
                       title: "Riwayat Data",
@@ -155,6 +154,14 @@ class AppDrawer extends StatelessWidget {
                       title: "Notifikasi",
                       onTap: () {
                         // TODO: Navigate to notifications
+                        Navigator.pop(context);
+                      },
+                    ),
+                    _DrawerItem(
+                      icon: Icons.person_outline,
+                      title: "Profil",
+                      onTap: () {
+                        // TODO: Navigate to profile
                         Navigator.pop(context);
                       },
                     ),
