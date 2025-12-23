@@ -174,7 +174,7 @@ class PestApiService {
   String _apiUrl;
   
   PestApiService({String? apiUrl}) 
-      : _apiUrl = apiUrl ?? 'http://192.168.1.100:5000';
+      : _apiUrl = apiUrl ?? 'https://web-production-849bb.up.railway.app/';
 
   String get apiUrl => _apiUrl;
 
